@@ -23,10 +23,5 @@ RUN php artisan key:generate --force || true
 
 EXPOSE 10000
 
-CMD sh -c "\
-mkdir -p database && \
-[ -f database/database.sqlite ] || touch database/database.sqlite && \
-php artisan migrate --force && \
-php artisan serve --host=0.0.0.0 --port=$PORT"
 
 CMD php artisan serve --host=0.0.0.0 --port=$PORT
