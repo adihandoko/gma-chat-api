@@ -13,4 +13,14 @@ COPY --from=composer:2 /usr/bin/composer /usr/bin/composer
 
 WORKDIR /var/www/html
 
-EXPOSE 8000
+COPY . .
+
+RUN composer install --no-dev --optimize-autoloader
+
+RUN cp .env.example .env || true
+
+RUN php artisan key:generate --force || true
+
+EXPOSE 10000
+
+CMD php artisan serve --host=0.0.0.0 --port=$PORT
